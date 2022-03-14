@@ -1,0 +1,21 @@
+ssh_authorized_keys:
+  - ssh-rsa xxx
+
+package_update: true
+
+packages:
+  - curl
+
+write_files:
+  - content: |-
+      my dummy content
+    owner: ubuntu:ubuntu
+    path: /home/ubuntu/file.txt
+    permissions: "0644"
+
+bootcmd:
+  - echo $(whoami) > /root/boot.txt
+
+runcmd:
+  - cp /root/boot.txt /home/ubuntu/boot_moved.txt
+  - chown ubuntu:ubuntu /home/ubuntu/boot_moved.txt

@@ -3,7 +3,7 @@ theme: "night"
 transition: "slide"
 highlightTheme: "monokai"
 slideNumber: true
-title: "ks8 training"
+title: "k8s training"
 enableZoom: true
 ---
 
@@ -20,6 +20,17 @@ enableZoom: true
 - kubernetes 工具
 - 安裝 prometheus 和 grafana
 - Q & A
+
+---
+
+<!-- .slide: data-background="https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png" data-background-repeat="none" data-background-size="1px" -->
+## about me
+
+My name is Bibby. Nice to meet you.
+
+:fa-broadcast-tower:![BB](https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png) 
+:fa-broadcast-tower::fa-broadcast-tower::fa-broadcast-tower:
+
 
 ---
 
@@ -44,7 +55,7 @@ enableZoom: true
 - 自動修復
 - 密鑰和配置管理
 
-<!-- <small>[參考](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes)</small> -->
+<small>[官網](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes)</small>
 
 <!-- ## 服務發現和負載平衡
 
@@ -85,7 +96,7 @@ Kubernetes 允許您存儲和管理敏感信息,例如密碼,OAuth 令牌和 ssh
 
 --
 
-## 架構元件
+## Kubernetes 架構元件(client/server)
 
 - etcd
 - kube-apiserver
@@ -140,14 +151,17 @@ Kubernetes 中最小單位的物件，也是 Kubernetes 中部署的基本單位
 安裝 multipass
 https://github.com/canonical/multipass
 
-```shell
+```sh
 # 產生一個 vm
 multipass launch \
   --name vm0 \
   --cpus 2 \
   --mem 4G \
   --disk 20G \
-  --cloud-init ./cloud-init.yaml
+  --cloud-init ./cloud-init.yml
+
+# list vm
+multipass list
 
 # into vm
 multipass shell vm0
@@ -163,22 +177,28 @@ multipass shell vm0
 # 安裝 docker
 curl -fsSL get.docker.com -o get-docker.sh && chmod 700 get-docker.sh && ./get-docker.sh
 
+# test docker
+docker ps
+
 # 安裝 install k3d tools
 curl -s https://raw.githubusercontent.com/rancher/k3d/master/install.sh | bash
 
+# test k3d
+k3d version
 ```
 
 --
 
 ## 建立一個 k3s cluster
 
-```shell
-k3d cluster create bb \
+```sh
+# create cluster
+k3d cluster create abc0 \
   --agents 1 \
   --k3s-arg "--disable=traefik@server:0" \
-  --api-port <vm-ip>:6550
+  --api-port 192.168.64.17:6550
 
-# test
+# test cluster
 k3d cluster list
 ```
 
@@ -186,11 +206,14 @@ k3d cluster list
 
 ## 建立 Kubernetes 控制環境
 
-```shell
+```sh
 # 產生 Kubernetes config
-# export KUBECONFIG=$(k3d kubeconfig get bb)
+# export KUBECONFIG=$(k3d kubeconfig get abc0)
 mkdir -p ~/.kube
-k3d kubeconfig get bb > ~/.kube/config
+k3d kubeconfig get abc0 > ~/.kube/config
+
+# check listen port
+lsof -i | grep 6550
 
 # 建置 workspace
 # --platform linux/arm64 (m1)
@@ -201,8 +224,8 @@ docker run --rm -it \
   bash
 
 # test
-kubectl cluster-info
 kubectl get nodes
+kubectl cluster-info
 ```
 
 ---
@@ -210,9 +233,7 @@ kubectl get nodes
 ## kubernetes 工具
 
 - kube-exporter(web)
-
   - https://github.com/cnrancher/kube-explorer
-
 - Lens (application)
   - https://k8slens.dev
 
@@ -226,15 +247,30 @@ kubectl get nodes
 
 ## kube-exporter(web)
 
-```shell
-curl -fSL https://github.com/cnrancher/kube-explorer/releases/download/v0.2.8/kube-explorer-linux-amd64 -o kube-explorer
+```sh
+# create container
+docker run --rm -it \
+  -w /app \
+  --net=host \
+  -v ~/.kube/config:/root/.kube/config \
+  node:16.14-alpine \
+  sh
 
-chrom +x ./kube-explorer
+# install kube-explorer
+apk add curl --no-cache
 
+curl -fSL https://github.com/cnrancher/kube-explorer/releases/download/v0.2.8/kube-explorer-linux-arm64 -o kube-explorer
+
+chmod +x ./kube-explorer
+
+# start service
 ./kube-explorer \
   --kubeconfig=/root/.kube/config \
   --http-listen-port=9898 \
   --https-listen-port=0
+
+# test
+open http://192.168.64.17:9898
 ```
 
 ---
@@ -264,7 +300,7 @@ chrom +x ./kube-explorer
 
 ## 安裝 grafana (by helm)
 
-```shell
+```sh
 # create namespace
 kubectl create namespace monitor
 
@@ -287,18 +323,32 @@ helm install \
   --set service.nodePort=31101 \
   grafana \
   ./grafana
+
+helm upgrade \
+  -n monitor \
+  --set persistence.storageClassName=local-path \
+  --set persistence.enabled=true \
+  --set service.type=NodePort \
+  --set service.nodePort=31101 \
+  grafana \
+  ./grafana
+
+# test (因為是 k3d 所以並不能用 nodeType 去打)
+kubectl port-forward service/grafana 31101:80 \
+  --address 0.0.0.0 \
+  -n monitor
 ```
 
 --
 
 ## test grafana
 
-```shell
+```sh
 # get password
-kubectl get secret grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+kubectl get secret grafana -o jsonpath="{.data.admin-password}" -n monitor | base64 -d ; echo
 
 # open by browser
-open http://vm-ip:31101
+open http://192.168.64.17:31101
 
 # dashboard from grafana <K8 Cluster Detail Dashboard>
 https://grafana.com/grafana/dashboards/10856
