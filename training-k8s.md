@@ -341,7 +341,7 @@ kubectl port-forward service/grafana 31101:80 \
 
 --
 
-## test grafana
+## 測試 grafana
 
 ```sh
 # get password
