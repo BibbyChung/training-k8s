@@ -441,7 +441,7 @@ kubectl port-forward service/grafana 31101:80 \
             </section>
         
             <section >
-                <h2>test grafana</h2>
+                <h2>測試 grafana</h2>
 <pre><code class="language-sh"># get password
 kubectl get secret grafana -o jsonpath=&quot;{.data.admin-password}&quot; -n monitor | base64 -d ; echo
 
