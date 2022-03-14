@@ -13,6 +13,17 @@ enableZoom: true
 
 ---
 
+<!-- .slide: data-background="https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png" data-background-repeat="none" data-background-size="1px" -->
+
+## about me
+
+My name is Bibby. Nice to meet you.
+
+:fa-broadcast-tower:![BB](https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png)
+:fa-broadcast-tower::fa-broadcast-tower::fa-broadcast-tower:
+
+---
+
 ## agenda
 
 - kubernetes 簡單介紹
@@ -20,17 +31,6 @@ enableZoom: true
 - kubernetes 工具
 - 安裝 prometheus 和 grafana
 - Q & A
-
----
-
-<!-- .slide: data-background="https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png" data-background-repeat="none" data-background-size="1px" -->
-## about me
-
-My name is Bibby. Nice to meet you.
-
-:fa-broadcast-tower:![BB](https://user-images.githubusercontent.com/8520661/158227110-9098ced4-64c7-4772-b290-0c36f4a59b1e.png) 
-:fa-broadcast-tower::fa-broadcast-tower::fa-broadcast-tower:
-
 
 ---
 
