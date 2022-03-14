@@ -3,11 +3,11 @@ theme: "night"
 transition: "slide"
 highlightTheme: "monokai"
 slideNumber: true
-title: "VSCode Reveal intro"
+title: "ks8 training"
 enableZoom: true
 ---
 
-## k8s trainning
+## k8s training
 
 大家吃飽飽，可以開始認真
 
@@ -26,6 +26,8 @@ enableZoom: true
 ## kubernetes 簡單介紹
 
 --
+
+## 講古
 
 ![](https://user-images.githubusercontent.com/8520661/158112714-f9992639-ab80-4010-a3ca-7328f8652db7.png)
 
@@ -77,7 +79,9 @@ Kubernetes 允許您存儲和管理敏感信息,例如密碼,OAuth 令牌和 ssh
 
 --
 
-[架構圖](https://user-images.githubusercontent.com/8520661/158118154-fd953506-54dc-46d2-8930-b6d5be04850e.png)
+## 架構圖
+
+[:fa-broadcast-tower: 點我點我 :fa-broadcast-tower:](https://user-images.githubusercontent.com/8520661/158118154-fd953506-54dc-46d2-8930-b6d5be04850e.png)
 
 --
 
@@ -209,12 +213,12 @@ kubectl get nodes
 
   - https://github.com/cnrancher/kube-explorer
 
-- lens (application)
+- Lens (application)
   - https://k8slens.dev
 
 --
 
-## lens (application)
+## Lens (application)
 
 ![](https://user-images.githubusercontent.com/8520661/158140073-cf23af6a-264f-4e02-81b1-8836af8abeb6.png)
 
@@ -232,3 +236,84 @@ chrom +x ./kube-explorer
   --http-listen-port=9898 \
   --https-listen-port=0
 ```
+
+---
+
+## 安裝 prometheus 和 grafana
+
+- prometheus (by Lens)
+- grafana (by helm)
+
+--
+
+## 安裝 prometheus (by Lens)
+
+![](https://user-images.githubusercontent.com/8520661/158142469-58663153-77f7-4fcc-ad98-89355cd45c23.png)
+
+<small>install prometheus by Lens</small>
+
+--
+
+## 測試 prometheus
+
+用下列的方式就可以看到介面了
+
+![安裝](https://user-images.githubusercontent.com/8520661/158143369-02cb38a2-d3f9-4f50-ad56-fe9550b3d38b.png)
+
+--
+
+## 安裝 grafana (by helm)
+
+```shell
+# create namespace
+kubectl create namespace monitor
+
+# add repo
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+# fetch code
+helm fetch \
+  --version=6.23.1 \
+  --untar \
+  grafana/grafana
+
+# install
+helm install \
+  -n monitor \
+  --set persistence.storageClassName=local-path \
+  --set persistence.enabled=true \
+  --set service.type=NodePort \
+  --set service.nodePort=31101 \
+  grafana \
+  ./grafana
+```
+
+--
+
+## test grafana
+
+```shell
+# get password
+kubectl get secret grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+# open by browser
+open http://vm-ip:31101
+
+# dashboard from grafana <K8 Cluster Detail Dashboard>
+https://grafana.com/grafana/dashboards/10856
+```
+
+---
+
+## Q & A
+
+問我問我
+
+--
+
+## docker / dock-compose / kubernetes 差異
+
+- Docker 单机部署简单应用
+- Docker-Compose 单机/少数机器部署应用
+- k8s 集群部署高可用应用
