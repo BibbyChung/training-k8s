@@ -368,14 +368,13 @@ https://grafana.com/grafana/dashboards/10856
 
 ## docker / dock-compose / kubernetes 差異
 
-- Docker 单机部署简单应用
-- Docker-Compose 单机/少数机器部署应用
-- k8s 集群部署高可用应用
-
+- Docker 簡單應用程序,用於單個部署
+- Docker-Compose 單機/小型機部署應用程序
+- k8s 群集部署高可用性應用程序
 
 ---
 
 ## references
 
 - [官網](https://kubernetes.io/docs/setup/)
-- [k8s 入門學習 30天](https://ithelp.ithome.com.tw/users/20111580/ironman/3931)
+- [k8s 入門學習 30 天](https://ithelp.ithome.com.tw/users/20111580/ironman/3931)
