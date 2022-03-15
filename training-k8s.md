@@ -4,7 +4,9 @@ transition: "slide"
 highlightTheme: "monokai"
 slideNumber: true
 title: "k8s training"
+enableChalkboard: false
 enableZoom: true
+enableMenu: true
 ---
 
 ## k8s training

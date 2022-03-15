@@ -534,7 +534,7 @@ https://grafana.com/grafana/dashboards/10856
 <!--	<script src="libs/reveal.js/4.1.3/plugin/audio-slideshow/recorder.js"></script>-->
 <!--	<script src="libs/reveal.js/4.1.3/plugin/audio-slideshow/RecordRTC.js"></script>-->
 
-<script src="libs/reveal.js/4.1.3/plugin/chalkboard/plugin.js"></script>
+
 	<script src="libs/reveal.js/4.1.3/plugin/customcontrols/plugin.js"></script>
 	<script src="libs/reveal.js/4.1.3/plugin/embed-tweet/plugin.js"></script>
 
@@ -548,7 +548,7 @@ https://grafana.com/grafana/dashboards/10856
 			RevealHighlight,
 			RevealMath,
 			RevealAnimate,
-			RevealChalkboard, 
+			
 			RevealEmbedTweet,
 			RevealChart,
 		];
@@ -655,11 +655,6 @@ https://grafana.com/grafana/dashboards/10856
 				startAtFragment: false, // when moving to a slide, start at the current fragment or at the start of the slide
 			},
 			
-			chalkboard: { // font-awesome.min.css must be available
-					//src: "chalkboard/chalkboard.json",
-					storage: "chalkboard-demo",
-				},
-			
 			customcontrols: {
 					controls: [
       						{
@@ -668,15 +663,7 @@ https://grafana.com/grafana/dashboards/10856
 						  icon: '<i class="fa fa-th"></i>',
 						  action: 'Reveal.toggleOverview();'
 						}
-						,
-						{ icon: '<i class="fa fa-pen-square"></i>',
-						  title: 'Toggle chalkboard (B)',
-						  action: 'RevealChalkboard.toggleChalkboard();'
-						},
-						{ icon: '<i class="fa fa-pen"></i>',
-						  title: 'Toggle notes canvas (C)',
-						  action: 'RevealChalkboard.toggleNotesCanvas();'
-						}
+						
 				]
 			},
 			chart: {
