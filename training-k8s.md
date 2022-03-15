@@ -137,12 +137,16 @@ Kubernetes 中最小單位的物件，也是 Kubernetes 中部署的基本單位
 
 ---
 
-## 快速產生 kubernetes 測試環境
+## 快速產生 kubernetes 測試環境(k3d)
 
 - 產生一個 vm
 - 安裝 docker/k3d 套件
 - 建立一個 k3s cluster
 - 建立 Kubernetes 控制環境
+
+--
+
+![](https://user-images.githubusercontent.com/8520661/158402814-cf9b39c6-75a2-4291-966d-5917e270baa4.png)
 
 --
 
@@ -196,7 +200,7 @@ k3d version
 k3d cluster create abc0 \
   --agents 1 \
   --k3s-arg "--disable=traefik@server:0" \
-  --api-port 192.168.64.17:6550
+  --api-port <vm-ip>:6550
 
 # test cluster
 k3d cluster list
@@ -270,7 +274,7 @@ chmod +x ./kube-explorer
   --https-listen-port=0
 
 # test
-open http://192.168.64.17:9898
+open http://<vm-ip>:9898
 ```
 
 ---
@@ -348,7 +352,7 @@ kubectl port-forward service/grafana 31101:80 \
 kubectl get secret grafana -o jsonpath="{.data.admin-password}" -n monitor | base64 -d ; echo
 
 # open by browser
-open http://192.168.64.17:31101
+open http://<vm-ip>:31101
 
 # dashboard from grafana <K8 Cluster Detail Dashboard>
 https://grafana.com/grafana/dashboards/10856
@@ -367,3 +371,12 @@ https://grafana.com/grafana/dashboards/10856
 - Docker 单机部署简单应用
 - Docker-Compose 单机/少数机器部署应用
 - k8s 集群部署高可用应用
+
+
+---
+
+## references
+
+- https://kubernetes.io/docs/setup/
+- https://ithelp.ithome.com.tw/users/20111580/ironman/3931
+- https://ithelp.ithome.com.tw/users/20120317/ironman/4034
