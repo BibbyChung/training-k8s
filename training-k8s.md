@@ -377,6 +377,5 @@ https://grafana.com/grafana/dashboards/10856
 
 ## references
 
-- https://kubernetes.io/docs/setup/
-- https://ithelp.ithome.com.tw/users/20111580/ironman/3931
-- https://ithelp.ithome.com.tw/users/20120317/ironman/4034
+- [官網](https://kubernetes.io/docs/setup/)
+- [k8s 入門學習 30天](https://ithelp.ithome.com.tw/users/20111580/ironman/3931)
