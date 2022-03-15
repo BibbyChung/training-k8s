@@ -219,13 +219,18 @@ Kubernetes 允許您存儲和管理敏感信息,例如密碼,OAuth 令牌和 ssh
     
     <section>
         <section >
-            <h2>快速產生 kubernetes 測試環境</h2>
+            <h2>快速產生 kubernetes 測試環境(k3d)</h2>
 <ul>
 <li>產生一個 vm</li>
 <li>安裝 docker/k3d 套件</li>
 <li>建立一個 k3s cluster</li>
 <li>建立 Kubernetes 控制環境</li>
 </ul>
+
+            </section>
+        
+            <section >
+                <p><img src="https://user-images.githubusercontent.com/8520661/158402814-cf9b39c6-75a2-4291-966d-5917e270baa4.png" alt=""></p>
 
             </section>
         
@@ -274,7 +279,7 @@ k3d version
 k3d cluster create abc0 \
   --agents 1 \
   --k3s-arg &quot;--disable=traefik@server:0&quot; \
-  --api-port 192.168.64.17:6550
+  --api-port &lt;vm-ip&gt;:6550
 
 # test cluster
 k3d cluster list
@@ -362,7 +367,7 @@ chmod +x ./kube-explorer
   --https-listen-port=0
 
 # test
-open http://192.168.64.17:9898
+open http://&lt;vm-ip&gt;:9898
 </code></pre>
 
             </section>
@@ -446,7 +451,7 @@ kubectl port-forward service/grafana 31101:80 \
 kubectl get secret grafana -o jsonpath=&quot;{.data.admin-password}&quot; -n monitor | base64 -d ; echo
 
 # open by browser
-open http://192.168.64.17:31101
+open http://&lt;vm-ip&gt;:31101
 
 # dashboard from grafana &lt;K8 Cluster Detail Dashboard&gt;
 https://grafana.com/grafana/dashboards/10856
@@ -480,6 +485,21 @@ https://grafana.com/grafana/dashboards/10856
         
 
     </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>references</h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/setup/">https://kubernetes.io/docs/setup/</a></li>
+<li><a href="https://ithelp.ithome.com.tw/users/20111580/ironman/3931">https://ithelp.ithome.com.tw/users/20111580/ironman/3931</a></li>
+<li><a href="https://ithelp.ithome.com.tw/users/20120317/ironman/4034">https://ithelp.ithome.com.tw/users/20120317/ironman/4034</a></li>
+</ul>
+
+            </section>
     
 
 
