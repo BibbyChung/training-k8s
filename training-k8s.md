@@ -380,3 +380,4 @@ https://grafana.com/grafana/dashboards/10856
 
 - [官網](https://kubernetes.io/docs/setup/)
 - [k8s 入門學習 30 天](https://ithelp.ithome.com.tw/users/20111580/ironman/3931)
+- [k3s-tutorial](https://github.com/kingsd041/k3s-tutorial)
