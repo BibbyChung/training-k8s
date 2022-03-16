@@ -239,12 +239,12 @@ Kubernetes 允許您存儲和管理敏感信息,例如密碼,OAuth 令牌和 ssh
 <p>安裝 multipass
 <a href="https://github.com/canonical/multipass">https://github.com/canonical/multipass</a></p>
 <pre><code class="language-sh"># 產生一個 vm
+# --cloud-init ./cloud-init.yml
 multipass launch \
   --name vm0 \
   --cpus 2 \
   --mem 4G \
   --disk 20G \
-  --cloud-init ./cloud-init.yml
 
 # list vm
 multipass list

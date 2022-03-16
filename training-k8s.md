@@ -159,12 +159,12 @@ https://github.com/canonical/multipass
 
 ```sh
 # 產生一個 vm
+# --cloud-init ./cloud-init.yml
 multipass launch \
   --name vm0 \
   --cpus 2 \
   --mem 4G \
   --disk 20G \
-  --cloud-init ./cloud-init.yml
 
 # list vm
 multipass list
